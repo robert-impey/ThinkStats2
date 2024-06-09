@@ -5,11 +5,12 @@ Copyright 2010 Allen B. Downey
 License: GNU GPLv3 http://www.gnu.org/licenses/gpl.html
 """
 
-import sys
-import numpy as np
-import thinkstats2
-
 from collections import defaultdict
+
+import numpy as np
+from pandas import DataFrame
+
+import thinkstats2
 
 
 def ReadFemResp(dct_file='2002FemResp.dct',
@@ -61,16 +62,16 @@ def CleanFemPreg(df):
 
     # birthwgt_lb contains at least one bogus value (51 lbs)
     # replace with NaN
-    df.loc[df.birthwgt_lb > 20, 'birthwgt_lb'] = np.nan
+    df.loc[df['birthwgt_lb'] > 20, 'birthwgt_lb'] = np.nan
     
     # replace 'not ascertained', 'refused', 'don't know' with NaN
     na_vals = [97, 98, 99]
-    df.birthwgt_lb.replace(na_vals, np.nan, inplace=True)
-    df.birthwgt_oz.replace(na_vals, np.nan, inplace=True)
-    df.hpagelb.replace(na_vals, np.nan, inplace=True)
+    df['birthwgt_lb'] = df['birthwgt_lb'].replace(na_vals, np.nan)
+    df['birthwgt_oz'] = df['birthwgt_oz'].replace(na_vals, np.nan)
+    df['hpagelb'] = df['hpagelb'].replace(na_vals, np.nan)
 
-    df.babysex.replace([7, 9], np.nan, inplace=True)
-    df.nbrnaliv.replace([9], np.nan, inplace=True)
+    df['babysex'] = df['babysex'].replace([7, 9], np.nan)
+    df['nbrnaliv'] = df['nbrnaliv'].replace([9], np.nan)
 
     # birthweight is stored in two columns, lbs and oz.
     # convert to a single column in lb
@@ -106,7 +107,7 @@ def ValidatePregnum(resp, preg):
     return True
 
 
-def MakePregMap(df):
+def MakePregMap(df: DataFrame) -> dict:
     """Make a map from caseid to list of preg indices.
 
     df: DataFrame
@@ -114,7 +115,7 @@ def MakePregMap(df):
     returns: dict that maps from caseid to list of indices into `preg`
     """
     d = defaultdict(list)
-    for index, caseid in df.caseid.iteritems():
+    for index, caseid in df.caseid.items():
         d[caseid].append(index)
     return d
 
