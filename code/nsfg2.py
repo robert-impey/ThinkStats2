@@ -56,8 +56,8 @@ def CleanFemPreg(df):
     
     # replace 'not ascertained', 'refused', 'don't know' with NaN
     na_vals = [97, 98, 99]
-    df.birthwgt_lb1.replace(na_vals, np.nan, inplace=True)
-    df.birthwgt_oz1.replace(na_vals, np.nan, inplace=True)
+    df.replace({'birthwgt_lb1': na_vals}, np.nan, inplace=True)
+    df.replace({'birthwgt_oz1': na_vals}, np.nan, inplace=True)
 
     # birthweight is stored in two columns, lbs and oz.
     # convert to a single column in lb

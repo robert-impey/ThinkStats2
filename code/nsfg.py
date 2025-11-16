@@ -94,7 +94,7 @@ def ValidatePregnum(resp, preg):
     preg_map = MakePregMap(preg)
     
     # iterate through the respondent pregnum series
-    for index, pregnum in resp.pregnum.iteritems():
+    for index, pregnum in resp.pregnum.items():
         caseid = resp.caseid[index]
         indices = preg_map[caseid]
 
