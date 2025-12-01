@@ -3,16 +3,10 @@ name: ThinkStats2
 dependencies:
   - python=3.13
   - jupyter
-  - numpy
   - matplotlib
-  - seaborn
+  - numpy
   - pandas
   - pytables
-  - scipy
   - scikit-learn
-  - pip
-  - pip:
-    - .
-
-
-
+  - scipy
+  - seaborn
