@@ -3,12 +3,12 @@ channels:
 - conda-forge
 - defaults
 dependencies:
-- python=3.10 # Explicitly pin a widely supported version
+- python=3.12
 - jupyter
 - matplotlib
 - numpy
 - pandas
-- pytables
+- tables
 - scikit-learn
 - scipy
 - seaborn
