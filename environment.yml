@@ -1,12 +1,14 @@
 name: ThinkStats2
-
+channels:
+- conda-forge
+- defaults
 dependencies:
-  - python=3.13
-  - jupyter
-  - matplotlib
-  - numpy
-  - pandas
-  - pytables
-  - scikit-learn
-  - scipy
-  - seaborn
+- python=3.10 # Explicitly pin a widely supported version
+- jupyter
+- matplotlib
+- numpy
+- pandas
+- pytables
+- scikit-learn
+- scipy
+- seaborn
