@@ -3,6 +3,7 @@ channels:
 - conda-forge
 - defaults
 dependencies:
+- conda-lock
 - python=3.12
 - jupyter
 - matplotlib
