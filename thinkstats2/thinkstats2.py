@@ -1034,7 +1034,7 @@ class Cdf:
 
         xs, freqs = zip(*sorted(dw.Items()))
         self.xs = np.asarray(xs)
-        self.ps = np.cumsum(freqs, dtype=np.float)
+        self.ps = np.cumsum(freqs, dtype=float)
         self.ps /= self.ps[-1]
 
     def __str__(self):

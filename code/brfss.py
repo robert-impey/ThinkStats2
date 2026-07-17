@@ -36,23 +36,23 @@ def Summarize(df, column, title):
 
 
 def CleanBrfssFrame(df):
-    """Recodes BRFSS variables.
+    """Recodes BRFSS variables in place.
 
     df: DataFrame
     """
-    # clean age
-    df.age.replace([7, 9], float('NaN'), inplace=True)
+    df["age"] = df["age"].replace([7, 9], np.nan)
 
-    # clean height
-    df.htm3.replace([999], float('NaN'), inplace=True)
+    df["htm3"] = df["htm3"].replace([999], np.nan)
 
-    # clean weight
-    df.wtkg2.replace([99999], float('NaN'), inplace=True)
-    df.wtkg2 /= 100.0
+    df["wtkg2"] = df["wtkg2"].replace([99999], np.nan) / 100.0
 
-    # clean weight a year ago
-    df.wtyrago.replace([7777, 9999], float('NaN'), inplace=True)
-    df['wtyrago'] = df.wtyrago.apply(lambda x: x/2.2 if x < 9000 else x-9000)
+    df["wtyrago"] = df["wtyrago"].replace([7777, 9999], np.nan)
+
+    pounds = df["wtyrago"] < 9000
+    df.loc[pounds, "wtyrago"] = df.loc[pounds, "wtyrago"] / 2.2
+    df.loc[~pounds & df["wtyrago"].notna(), "wtyrago"] = (
+        df.loc[~pounds & df["wtyrago"].notna(), "wtyrago"] - 9000
+    )
 
 
 def ReadBrfss(filename='CDBRFS08.ASC.gz', compression='gzip', nrows=None):

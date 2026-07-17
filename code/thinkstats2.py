@@ -158,7 +158,7 @@ class _DictWrapper(object):
         elif isinstance(obj, (_DictWrapper, Cdf, Pdf)):
             self.d.update(obj.Items())
         elif isinstance(obj, pandas.Series):
-            self.d.update(obj.value_counts().iteritems())
+            self.d.update(obj.value_counts().items())
         else:
             # finally, treat it like a list
             self.d.update(Counter(obj))
@@ -1034,7 +1034,7 @@ class Cdf:
 
         xs, freqs = zip(*sorted(dw.Items()))
         self.xs = np.asarray(xs)
-        self.ps = np.cumsum(freqs, dtype=np.float)
+        self.ps = np.cumsum(freqs, dtype=float)
         self.ps /= self.ps[-1]
 
     def __str__(self):
